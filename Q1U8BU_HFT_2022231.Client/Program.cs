@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Query;
 using Q1U8BU_HFT_2022231.Models;
-
 using System;
 using System.Linq;
 
@@ -31,8 +30,6 @@ namespace Q1U8BU_HFT_2022231.Client
 
             }
             dr.Close();
-            Sales a = new Sales("3#valaki#1#4#344");
-            Console.WriteLine(a);
 
         }
     }

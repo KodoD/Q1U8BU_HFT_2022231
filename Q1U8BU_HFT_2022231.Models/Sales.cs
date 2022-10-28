@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Castle.Components.DictionaryAdapter;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Q1U8BU_HFT_2022231.Models
 {
-    internal class Sales
+    public class Sales
     {
         [System.ComponentModel.DataAnnotations.Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
