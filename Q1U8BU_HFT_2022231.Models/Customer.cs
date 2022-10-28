@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Q1U8BU_HFT_2022231.Models
 {
-    public class Customers
+    public class Customer
     {
         // ID,name,age,
         [System.ComponentModel.DataAnnotations.Key]
@@ -23,11 +23,11 @@ namespace Q1U8BU_HFT_2022231.Models
         [Range(18,99)]
         
         public int Age { get; set; }
-        public Customers()
+        public Customer()
         {
 
         }
-        public Customers(string line)
+        public Customer(string line)
         {
             string[] parts = line.Split('#');
             CustomerID = int.Parse(parts[0]);

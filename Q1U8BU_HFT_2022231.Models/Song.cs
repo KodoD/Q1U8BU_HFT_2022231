@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Q1U8BU_HFT_2022231.Models
 {
-    internal class Song
+    public class Song
     {
         //
         //songid,name,likes
