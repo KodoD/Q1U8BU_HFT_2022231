@@ -8,6 +8,6 @@ namespace Q1U8BU_HFT_2022231.Models
 {
     internal class Sales
     {
-    //SaleID, SaleName ,CustID,Price, SongID
+        //SaleID, SaleName,SongID ,CustID,Price, 
     }
 }
