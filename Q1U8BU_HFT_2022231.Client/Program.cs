@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 
 namespace Q1U8BU_HFT_2022231.Client
 {
@@ -6,7 +7,26 @@ namespace Q1U8BU_HFT_2022231.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string connStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\kodod\\source\\repos\\Q1U8BU_HFT_2022231\\Q1U8BU_HFT_2022231.Models\\Diak.mdf;Integrated Security=True";
+            SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("select * from Sales",conn);
+            SqlDataReader dr = cmd.ExecuteReader();
+            for (int i = 0; i < dr.FieldCount; i++)
+            {
+                Console.Write(dr.GetName(i)+"\t");
+            }
+            Console.WriteLine();
+            while (dr.Read())
+            {
+                for (int i = 0; i < dr.FieldCount; i++)
+                {
+                    Console.Write(dr.GetValue(i) + "\t");
+                }
+                Console.WriteLine();
+
+            }
+            dr.Close();
         }
     }
 }
