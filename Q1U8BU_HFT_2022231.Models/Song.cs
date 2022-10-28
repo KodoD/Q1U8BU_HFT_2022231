@@ -10,5 +10,8 @@ namespace Q1U8BU_HFT_2022231.Models
     {
         //
         //songid,name,likes,
+        public int SongID { get; set; }
+        public string Name { get; set; }
+        public int Like { get; set; }
     }
 }
