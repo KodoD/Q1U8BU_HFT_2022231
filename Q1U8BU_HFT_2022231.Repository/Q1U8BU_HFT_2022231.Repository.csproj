@@ -10,10 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Database\Diak.mdf">
+    <Content Include="Diak.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database\Diak_log.ldf">
+    <Content Include="Diak_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
