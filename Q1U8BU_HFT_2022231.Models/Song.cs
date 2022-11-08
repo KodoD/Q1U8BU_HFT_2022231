@@ -17,15 +17,25 @@ namespace Q1U8BU_HFT_2022231.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SongID { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } 
+        public  virtual Author Author { get; set; }
+        public int AuthorID { get; set; }
         [Range(1,6)]
         public int Like { get; set; }
+        public virtual ICollection<Sales> Sales { get; set; }
+        public Song()
+        {
+            Sales = new HashSet<Sales>();
+
+        }
+
         public Song(string line)
         {
             string[] parts = line.Split('#');
             SongID=int.Parse(parts[0]);
             Name=parts[1];
-            Like=int.Parse(parts[2]);
+            Sales = new HashSet<Sales>();
+            Like = int.Parse(parts[2]);
         }
 
     }

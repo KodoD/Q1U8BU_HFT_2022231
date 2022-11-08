@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,13 @@ namespace Q1U8BU_HFT_2022231.Models
         [Required]
         [Range(0, 100000)]
         public int Price { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Song Song{ get; set; }
+
+        public Sales()
+        {
+
+        }
         public Sales(string line)
         {
             string[] parts = line.Split('#');

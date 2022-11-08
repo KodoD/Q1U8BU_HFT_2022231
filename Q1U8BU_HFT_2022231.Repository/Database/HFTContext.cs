@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Numerics;
 using Microsoft.EntityFrameworkCore;
 using Q1U8BU_HFT_2022231.Models;
 
@@ -10,6 +11,7 @@ namespace Q1U8BU_HFT_2022231.Repository
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<Song> Song { get; set; }
+        public DbSet<Author> Author { get; set; }
         public  HFTContext()
         {
             this.Database.EnsureCreated();
@@ -20,41 +22,51 @@ namespace Q1U8BU_HFT_2022231.Repository
 
                 builder.UseLazyLoadingProxies().UseInMemoryDatabase("database");
             }
-        }/*
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Customer>(Customer => Customer
-                .HasOne(Customer => Customer.CustomerID).
-                 (director => director.Customers)
-                .HasForeignKey(Customer => Customer.DirectorId)
-                .OnDelete(DeleteBehavior.Cascade));
+            modelBuilder.Entity<Sales>(sales => sales
+                .HasOne(sales => sales.Customer)
+                .WithMany(customer => customer.Sales)
+                .HasForeignKey(sales => sales.CustomerID)
+                .OnDelete(DeleteBehavior.SetNull));
 
 
+            modelBuilder.Entity<Sales>(sales => sales
+           .HasOne(sales => sales.Song)
+           .WithMany(song=> song.Sales)
+           .HasForeignKey(sales => sales.SongID)
+           .OnDelete(DeleteBehavior.SetNull));
 
-            modelBuilder.Entity<Song>().HasOne
-                
-                /*
-                .WithMany(actor => actor.Roles)
-                .HasForeignKey(r => r.ActorId)
-                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Song>(song => song
+                 .HasOne(song => song.Author)
+                 .WithMany(author => author.Songs)
+                 .HasForeignKey(song => song.AuthorID)
+                 .OnDelete(DeleteBehavior.SetNull));
+
+            modelBuilder.Entity<Author>().HasData(new Author[]
+            {
+                new Author("1#Tony Stark"),
+                new Author("2#Pepper Potts"),
+                new Author("3#Rhodey"),
+                new Author("4#Obadiah Stane"),
+                new Author("5#Christine Everhart"),
+                new Author("6#Yinsen"),
+                new Author("7#Raza"),
+                new Author("8#Agent Coulson"),
+                new Author("9#General Gabriel"),
+                new Author("10#Abu Bakaar"),
+                new Author("11#JARVIS")
 
 
-            modelBuilder.Entity<Sales>()
-                .HasOne(r => r.Song)
-                .WithMany(Song => Song.Saless)
-                .HasForeignKey(r => r.SongId)
-                .OnDelete(DeleteBehavior.Cascade);
+            });
 
-            modelBuilder.Entity<Sales>()
-                .HasOne(r => r.Customer)
-                .WithMany(Customer => Customer.Saless)
-                .HasForeignKey(r => r.CustomerId)
-                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Customer>().HasData(new Customer[]
             {
-                new Customer("1#Varga#585,8#19"),
+                new Customer("1#Varga8#19"),
                 new Customer("2#Kovacs#36"),
                 new Customer("3#Jakab#39"),
                 new Customer("4#Kiss#27"),
@@ -108,6 +120,6 @@ namespace Q1U8BU_HFT_2022231.Repository
                 
 
             });
-        }*/
+     }
      }
 }

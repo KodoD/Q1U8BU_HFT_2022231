@@ -1,4 +1,4 @@
-﻿using Castle.Components.DictionaryAdapter;
+﻿
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Q1U8BU_HFT_2022231.Models
     public class Customer
     {
         // ID,name,age,
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerID { get; set; }
         [Required]
@@ -21,18 +21,24 @@ namespace Q1U8BU_HFT_2022231.Models
         public string Name { get; set; }
         [Required]
         [Range(18,99)]
-        
+        public virtual ICollection<Sales> Sales { get; set; }
+
+
         public int Age { get; set; }
         public Customer()
         {
+            Sales = new HashSet<Sales>();
 
         }
+
+
         public Customer(string line)
         {
             string[] parts = line.Split('#');
             CustomerID = int.Parse(parts[0]);
             Name = parts[1];
             Age = int.Parse(parts[2]);
+            Sales = new HashSet<Sales>();
         }
     }
 }
