@@ -1,4 +1,5 @@
-﻿using Q1U8BU_HFT_2022231.Models;
+﻿using Q1U8BU_HFT_2022231.Logic.Classes;
+using Q1U8BU_HFT_2022231.Models;
 using Q1U8BU_HFT_2022231.Repository;
 using System;
 using System.Collections.Generic;
@@ -52,5 +53,11 @@ namespace Q1U8BU_HFT_2022231.Logic
         {
             this.repo.Update(item);
         }
+        public Favorite Favorite() 
+        {
+            return null;//autor name
+               
+        }
+
     }
 }

@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Q1U8BU_HFT_2022231.Logic;
+using Q1U8BU_HFT_2022231.Models;
+using Q1U8BU_HFT_2022231.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +28,18 @@ namespace Q1U8BU_HFT_2022231.Endpoint
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<HFTContext>();
+            services.AddTransient<IRepository<Author>,AuthorRepository>();
+            services.AddTransient<IRepository<Song>,SongRepository>();
+            services.AddTransient<IRepository<Sales>,SalesRepository>();
+            services.AddTransient<IRepository<Customer>,CustomerRepository>();
+
+            services.AddTransient<ISongLogic, SongLogic>();
+            services.AddTransient<IAuthorLogic, AuthorLogic>();
+            services.AddTransient<ISalesLogic, SalesLogic>();
+            services.AddTransient<ICustomerLogic, CustomerLogic>();
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
