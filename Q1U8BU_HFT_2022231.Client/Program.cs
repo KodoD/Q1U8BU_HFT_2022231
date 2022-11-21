@@ -1,9 +1,7 @@
 ﻿using ConsoleTools;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Query;
-using Q1U8BU_HFT_2022231.Models;
-using Q1U8BU_HFT_2022231.Repository;
+using MovieDbApp.RestClient;
 using Q1U8BU_HFT_2022231.Logic;
+using Q1U8BU_HFT_2022231.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,28 +10,148 @@ namespace Q1U8BU_HFT_2022231.Client
 {
     internal class Program
     {
-
-        static SalesLogic salesLogic;
-        static CustomerLogic customerLogic;
-        static SongLogic songLogic;
-        static AuthorLogic authorlogic;
+        static void Create(string entity)
+        {
+            if (entity == "Song")
+            {
+                Console.WriteLine("Enter Song Name: ");
+                string name=Console.ReadLine();
+                rest.Post(new Song() { Name = name }, "song");
+            }
+            if (entity == "Author")
+            {
+                Console.WriteLine("Enter Author Name: ");
+                string name = Console.ReadLine();
+                rest.Post(new Song() { Name = name }, "author");
+            }
+            if (entity == "Sales")
+            {
+                Console.WriteLine("Enter Sales Name: ");
+                string name = Console.ReadLine();
+                rest.Post(new Song() { Name = name }, "sales");
+            }
+            if (entity == "Customer")
+            {
+                Console.WriteLine("Enter Customer Name: ");
+                string name = Console.ReadLine();
+                rest.Post(new Song() { Name = name }, "customer");
+            }
+            Console.ReadLine();
+        }
+        static void List(string entity)
+        {
+            if (entity == "Song")
+            {
+                List<Song> songs = rest.Get<Song>("song");
+                foreach (var item in songs)
+                {
+                    Console.WriteLine(item.SongID + ":" + item.Name);
+                }
+            }
+            if (entity == "Author")
+            {
+                List<Author> author = rest.Get<Author>("author");
+                foreach (var item in author)
+                {
+                    Console.WriteLine(item.AutherId + "\t" + item.Name);
+                }
+            }
+            if (entity == "Sales")
+            {
+                List<Sales> sales = rest.Get<Sales>("sales");
+                foreach (var item in sales)
+                {
+                    Console.WriteLine(item.SalesID + "\t" + item.Price);
+                }
+            }
+            if (entity == "Customer")
+            {
+                List<Customer> customers = rest.Get<Customer>("customer");
+                foreach (var item in customers)
+                {
+                    Console.WriteLine(item.CustomerID + "\t" + item.Name);
+                }
+            }
+            Console.ReadLine();
+        }
+        static void Update(string entity)
+        {
+            if (entity == "Song")
+            {
+                Console.Write("Enter Song's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Song one = rest.Get<Song>(id, "song");
+                Console.WriteLine($"New name[old:{one.Name}]: ");
+                string name = Console.ReadLine();
+                one.Name = name;
+                rest.Put(one, "song");
+            }
+            if (entity == "Author")
+            {
+                Console.Write("Enter Author's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Author one = rest.Get<Author>(id, "author");
+                Console.WriteLine($"New name[old:{one.Name}]: ");
+                string name = Console.ReadLine();
+                one.Name = name;
+                rest.Put(one, "author");
+            }
+            if (entity == "Sales")
+            {
+                Console.Write("Enter Sales's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Sales one = rest.Get<Sales>(id, "sales");
+                Console.WriteLine($"New name[old:{one.SaleName}]: ");
+                string name = Console.ReadLine();
+                one.SaleName = name;
+                rest.Put(one, "sales");
+            }
+            if (entity == "Customer")
+            {
+                Console.Write("Enter Customer's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Customer one = rest.Get<Customer>(id, "customer");
+                Console.WriteLine($"New name[old:{one.Name}]: ");
+                string name = Console.ReadLine();
+                one.Name = name;
+                rest.Put(one, "customer");
+            }
+            Console.ReadLine();
+        }
+        static void Delete(string entity)
+        {
+            if (entity == "Song")
+            {
+                Console.WriteLine("Enter Song's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "song");
+            }
+            if (entity == "Author")
+            {
+                Console.WriteLine("Enter Author's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "author");
+            }
+            if (entity == "Sales")
+            {
+                Console.WriteLine("Enter Sales's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "sales");
+            }
+            if (entity == "Customer")
+            {
+                Console.WriteLine("Enter Customer's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "customer");
+            }
+            Console.ReadLine();
+        }
+        static RestService rest;
 
         static void Main(string[] args)
         {
-          
-          
-            var ctx=new HFTContext();
-            #region repo+logic
-            var SalesRepo = new SalesRepository(ctx); 
-            var CustomerRepo = new CustomerRepository(ctx); 
-            var SongRepo = new SongRepository(ctx);
-            var AuthorRepo = new AuthorRepository(ctx);
 
-            var SalesLogic = new SalesLogic(SalesRepo);
-            var SongLogic = new SongLogic(SongRepo);
-            var CustomerLogic = new CustomerLogic(CustomerRepo);
-            var AuthorLogic = new AuthorLogic(AuthorRepo);
-            #endregion
+            rest = new RestService("http://localhost:58670/", "Songs");
 
             #region Menu
             var SalesSubMenu = new ConsoleMenu(args, level: 1)
@@ -78,34 +196,7 @@ namespace Q1U8BU_HFT_2022231.Client
         }
 
 
-        static void Create(string entity)
-        {
-            Console.WriteLine(entity + " create");
-            Console.ReadLine();
-        }
-        static void List(string entity)
-        {
-            if (entity == "Song")
-            {
-                var items = songLogic.ReadAll();
-                Console.WriteLine("Id" + "\t" + "Name");
-                foreach (var item in items)
-                {
-                    Console.WriteLine(item.SongID + "\t" + item.Name);
-                }
-            }
-            Console.ReadLine();
-        }
-        static void Update(string entity)
-        {
-            Console.WriteLine(entity + " update");
-            Console.ReadLine();
-        }
-        static void Delete(string entity)
-        {
-            Console.WriteLine(entity + " delete");
-            Console.ReadLine();
-        }
+
 
     }
 }
