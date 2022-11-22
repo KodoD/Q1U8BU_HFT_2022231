@@ -151,7 +151,7 @@ namespace Q1U8BU_HFT_2022231.Client
         static void Main(string[] args)
         {
 
-            rest = new RestService("http://localhost:58670/", "song");
+            rest = new RestService("http://localhost:58670", "song");
 
             #region Menu
             var SalesSubMenu = new ConsoleMenu(args, level: 1)

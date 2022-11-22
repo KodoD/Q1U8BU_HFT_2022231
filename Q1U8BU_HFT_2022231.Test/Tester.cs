@@ -9,6 +9,11 @@ namespace Q1U8BU_HFT_2022231.Test
         [Test]
         public void CreateTestOne() 
         {
+            var test = new Tester();
+            //Assert
+
+            //Arrange
+
         }
         [Test]
         public void CreateTestTwo()

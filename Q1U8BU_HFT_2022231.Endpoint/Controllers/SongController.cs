@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Q1U8BU_HFT_2022231.Logic;
+using Q1U8BU_HFT_2022231.Logic.Classes;
 using Q1U8BU_HFT_2022231.Models;
 using System.Collections.Generic;
 
@@ -50,6 +51,13 @@ namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
         public void Delete(int id)
         {
             this.logic.Delete(id);
+        }
+
+        [HttpGet]
+        public IEnumerable<Favorite> Favoriterank()
+        {
+            return this.logic.Favoriterank();
+
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
             return this.logic.ReadAll();
         }
 
+
         // GET api/<AuthorController>/5
         [HttpGet("{id}")]
         public Author Read(int id)
