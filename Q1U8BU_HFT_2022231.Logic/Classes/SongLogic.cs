@@ -53,9 +53,18 @@ namespace Q1U8BU_HFT_2022231.Logic
         {
             this.repo.Update(item);
         }
-        public Favorite Favorite() 
+        public IEnumerable<Favorite> Favoriterank()
         {
-            return null;//autor name
+            var favorite = from x in Song
+                           join y in Author on x.AuthorID equals y.AuthorID
+                           orderby x.Likes
+                           select new Favorite {
+                               ID = x.SongID,  
+                               Name=x.Name,
+                               Likes=x.Like,
+                               author=y.Name
+                         }
+            return favorite;//autor name
                
         }
 
