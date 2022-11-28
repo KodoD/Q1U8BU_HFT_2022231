@@ -12,7 +12,7 @@ namespace Q1U8BU_HFT_2022231.Logic
     public class SongLogic : ISongLogic
     {
         IRepository<Song> repo;
-        IRepository<Author> repo2;//IOC KONTENER,cIGÁNY,fACTORY PATTERN
+        IRepository<Author> repo2;//IOC KONTENER,fACTORY PATTERN
         public SongLogic(IRepository<Song> repo,IRepository<Author> repo2)
         {
             this.repo = repo;
@@ -77,7 +77,6 @@ namespace Q1U8BU_HFT_2022231.Logic
             var favorite = from x in repo.ReadAll()
                            orderby x.Like ascending
                            group x by new {x.SongID,x.AuthorID, x.Name,x.Like }into g
-
                            select new Favorite
                            {
                                ID = g.Key.SongID,

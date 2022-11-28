@@ -1,15 +1,17 @@
 ﻿using ConsoleTools;
-using MovieDbApp.RestClient;
-using Q1U8BU_HFT_2022231.Logic;
+using Q1U8BU_HFT_2022231.Logic.Classes;
 using Q1U8BU_HFT_2022231.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace Q1U8BU_HFT_2022231.Client
 {
     internal class Program
     {
+        static RestService rest;
+
         static void Create(string entity)
         {
             if (entity == "Song")
@@ -71,6 +73,39 @@ namespace Q1U8BU_HFT_2022231.Client
                 {
                     Console.WriteLine(item.CustomerID + "\t" + item.Name);
                 }
+            }
+            Console.ReadLine();
+        }
+        static void NonCrud(string entity) 
+        {
+            if (entity == "Favorite")
+            {
+                var results = rest.GetSingle(new Favorite(),"stat");
+                Console.WriteLine(results);
+            }
+            if (entity == "LeastFavorite")
+            {
+                Console.WriteLine("Enter Author's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "author");
+            }
+            if (entity == "MostWanted")
+            {
+                Console.WriteLine("Enter Sales's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "sales");
+            }
+            if (entity == "LeastWanted")
+            {
+                Console.WriteLine("Enter Customer's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "customer");
+            }
+            if (entity == "MostFamous")
+            {
+                Console.WriteLine("Enter Customer's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "customer");
             }
             Console.ReadLine();
         }
@@ -146,12 +181,11 @@ namespace Q1U8BU_HFT_2022231.Client
             }
             Console.ReadLine();
         }
-        static RestService rest;
 
         static void Main(string[] args)
         {
 
-            rest = new RestService("http://localhost:58670", "song");
+            rest = new RestService("http://localhost:58670/", "song");
 
             #region Menu
             var SalesSubMenu = new ConsoleMenu(args, level: 1)
@@ -160,7 +194,13 @@ namespace Q1U8BU_HFT_2022231.Client
                 .Add("Delete", () => Delete("Sales"))
                 .Add("Update", () => Update("Sales"))
                 .Add("Exit", ConsoleMenu.Close);
-
+            var StatMenu=new ConsoleMenu(args, level: 1)
+                .Add("Favorite", () =>NonCrud("Favorite"))
+                .Add("LeastFavorite", () => NonCrud("LeastFavorite"))
+                .Add("MostWanted", () => NonCrud("MostWanted"))
+                .Add("LeastWanted", () => NonCrud("LeastWanted"))
+                .Add("MostFamous", () => NonCrud("MostFamous"))
+                .Add("Exit", ConsoleMenu.Close);
             var CustomerSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Customer"))
                 .Add("Create", () => Create("Customer"))
@@ -188,7 +228,7 @@ namespace Q1U8BU_HFT_2022231.Client
                 .Add("Customers", () => CustomerSubMenu.Show())
                 .Add("Songs", () => SongSubMenu.Show())
                 .Add("Author", () =>AuthorSubMenu.Show())
-
+                .Add("Stat", () => StatMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();

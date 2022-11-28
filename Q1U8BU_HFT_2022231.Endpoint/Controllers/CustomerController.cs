@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
 {
-    [Route("api/[controller]")]
-    
+    [Route("[controller]")]
+    [ApiController]
     public class CustomerController : ControllerBase
     {
         ICustomerLogic logic;

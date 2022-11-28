@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
+    [ApiController]
     public class SongController : ControllerBase
     {
         ISongLogic logic;
@@ -53,11 +54,11 @@ namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
             this.logic.Delete(id);
         }
 
-        [HttpGet]
-        public IEnumerable<Favorite> Favoriterank()
-        {
-            return this.logic.Favoriterank();
+        //[HttpGet]
+        //public IEnumerable<Favorite> Favoriterank()
+        //{
+        //    return this.logic.Favoriterank();
 
-        }
+        //}
     }
 }

@@ -7,7 +7,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieDbApp.RestClient
+namespace Q1U8BU_HFT_2022231.Client
 {
     class RestService
     {

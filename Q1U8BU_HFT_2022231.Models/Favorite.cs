@@ -16,4 +16,14 @@ namespace Q1U8BU_HFT_2022231.Logic.Classes
         public string author { get; set; }
 
     }
+    public class MostFamosus
+    {
+
+
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int Likes { get; set; }
+        public string author { get; set; }
+
+    }
 }
