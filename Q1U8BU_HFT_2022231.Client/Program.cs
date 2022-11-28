@@ -1,5 +1,4 @@
 ﻿using ConsoleTools;
-using Q1U8BU_HFT_2022231.Logic.Classes;
 using Q1U8BU_HFT_2022231.Models;
 using System;
 using System.Collections.Generic;
@@ -80,32 +79,44 @@ namespace Q1U8BU_HFT_2022231.Client
         {
             if (entity == "Favorite")
             {
-                var results = rest.GetSingle(new Favorite(),"stat");
-                Console.WriteLine(results);
+                var results = rest.Get<Favorite>("Stat/Favorite");
+                foreach (var item in results)
+                {
+                    Console.WriteLine(item);
+                }
+
             }
             if (entity == "LeastFavorite")
             {
-                Console.WriteLine("Enter Author's id to delete: ");
-                int id = int.Parse(Console.ReadLine());
-                rest.Delete(id, "author");
+                var results = rest.Get<Favorite>("Stat/LeastFavorite");
+                foreach (var item in results)
+                {
+                    Console.WriteLine(item);
+                }
             }
             if (entity == "MostWanted")
             {
-                Console.WriteLine("Enter Sales's id to delete: ");
-                int id = int.Parse(Console.ReadLine());
-                rest.Delete(id, "sales");
+                var results = rest.Get<MostWanted>("Stat/MostWanted");
+                foreach (var item in results)
+                {
+                    Console.WriteLine(item);
+                }
             }
             if (entity == "LeastWanted")
             {
-                Console.WriteLine("Enter Customer's id to delete: ");
-                int id = int.Parse(Console.ReadLine());
-                rest.Delete(id, "customer");
+                var results = rest.Get<MostWanted>("Stat/LeastWanted");
+                foreach (var item in results)
+                {
+                    Console.WriteLine(item);
+                }
             }
-            if (entity == "MostFamous")
+            if (entity == "Regular")
             {
-                Console.WriteLine("Enter Customer's id to delete: ");
-                int id = int.Parse(Console.ReadLine());
-                rest.Delete(id, "customer");
+                var results = rest.Get<RegularGuest>("Stat/RegularGuest");
+                foreach (var item in results)
+                {
+                    Console.WriteLine(item);
+                }
             }
             Console.ReadLine();
         }
@@ -199,7 +210,7 @@ namespace Q1U8BU_HFT_2022231.Client
                 .Add("LeastFavorite", () => NonCrud("LeastFavorite"))
                 .Add("MostWanted", () => NonCrud("MostWanted"))
                 .Add("LeastWanted", () => NonCrud("LeastWanted"))
-                .Add("MostFamous", () => NonCrud("MostFamous"))
+                .Add("RegularCustomer", () => NonCrud("Regular"))
                 .Add("Exit", ConsoleMenu.Close);
             var CustomerSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Customer"))

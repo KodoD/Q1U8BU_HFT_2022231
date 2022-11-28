@@ -1,5 +1,4 @@
-﻿using Q1U8BU_HFT_2022231.Logic.Classes;
-using Q1U8BU_HFT_2022231.Models;
+﻿using Q1U8BU_HFT_2022231.Models;
 using Q1U8BU_HFT_2022231.Repository;
 using System;
 using System.Collections.Generic;
@@ -60,7 +59,6 @@ namespace Q1U8BU_HFT_2022231.Logic
             var favorite = from x in repo.ReadAll()
                            orderby x.Like descending
                            group x by new {x.SongID,x.AuthorID, x.Name,x.Like }into g
-
                            select new Favorite
                            {
                                ID = g.Key.SongID,
@@ -77,7 +75,7 @@ namespace Q1U8BU_HFT_2022231.Logic
             var favorite = from x in repo.ReadAll()
                            orderby x.Like ascending
                            group x by new {x.SongID,x.AuthorID, x.Name,x.Like }into g
-                           select new Favorite
+                           select new Stat
                            {
                                ID = g.Key.SongID,
                                Name = g.Key.Name,
