@@ -15,12 +15,21 @@ namespace Q1U8BU_HFT_2022231.Logic
         IRepository<Sales> repo;
         IRepository<Author> repo2;
         IRepository<Customer> repo3;
+        IRepository<Song> repo4;
 
-        public SalesLogic(IRepository<Sales> repo, IRepository<Author> repo2, IRepository<Customer> repo3)
+        public SalesLogic(IRepository<Sales> repo, IRepository<Author> repo2, IRepository<Customer> repo3, IRepository<Song> repo4)
         {
             this.repo = repo;
             this.repo2 = repo2;
             this.repo3 = repo3;
+            this.repo4 = repo4;
+
+
+        }
+
+        public SalesLogic(IRepository<Sales> repo)
+        {
+            this.repo = repo;
         }
 
         public void Create(Sales item)
@@ -60,47 +69,44 @@ namespace Q1U8BU_HFT_2022231.Logic
         {
             this.repo.Update(item);
         }
-        public IEnumerable<MostWanted> MostWanted() 
+        public IEnumerable<MostWanted> MostWanted()
         {
             var wanted = from x in repo.ReadAll()
-                           orderby Count(x.Song) descending
-                           group x by new {x.SongID, x.AuthorID, x.Name, x.Like } into g
-                           select new Stat
-                           {
-                               ID = g.Key.SongID,
-                               Name = g.Key.Name,
-                               Likes = g.Key.Like,
-                               author = repo2.Read((g.Key.AuthorID)).Name,
-                           };
-            return wanted;
+                         group x by new { x.SongID } into g
+                         select new MostWanted
+                         {
+                             Id = g.Key.SongID,
+                             Name = repo4.Read(g.Key.SongID).Name,
+                             Count = repo.ReadAll().Where(x => x.SongID == g.Key.SongID).Count(),
+                         };
+            return wanted.ToList().OrderByDescending(x=>x.Count).Take(1);
         }
         public IEnumerable<MostWanted> LeastWanted()
         {
             var wanted = from x in repo.ReadAll()
-                         orderby x ascending
-                         group x by new { x.SongID, x.AuthorID, x.Name, x.Like } into g
-                         select new Stat
+                         group x by new { x.SongID } into g
+                         select new MostWanted
                          {
-                             ID = g.Key.Author,
-                             Name = g.Key.Name,
-                             Likes = g.Key.Like,
-                             author = repo2.Read((g.Key.AuthorID)).Name,
+                             Id = g.Key.SongID,
+                             Name = repo4.Read(g.Key.SongID).Name,
+                             Count = repo.ReadAll().Where(x => x.SongID == g.Key.SongID).Count(),
                          };
-            return wanted;
+            return wanted.ToList().OrderBy(x => x.Count).Take(1);
         }
         public IEnumerable<RegularGuest> RegularGuests()
         {
+            var valamicsoda = repo.ReadAll();
             var regular = from x in repo.ReadAll()
-                         orderby x descending
-                         group x by new { x.CustomerID ,x.Customer } into g
-                         select new Stat
-                         {
-                             ID = g.Key.CustomerID,
-                             Name = g.Key.,
-                             Likes = g.Key.Like,
-                             author = repo3.Read((g.Key.CustomerID)).Name,
-                         };
-            return regular;
+                          group x by new { x.CustomerID } into g
+                          select new RegularGuest
+                          {
+                              ID = g.Key.CustomerID,
+                              Name = repo3.Read(g.Key.CustomerID).Name,
+                              SpentM = repo.ReadAll().Where(x => x.CustomerID == g.Key.CustomerID).Sum(x => x.Price)
+
+                          };
+            return regular.ToList().OrderByDescending(x => x.SpentM);
+
         }
     }
 }

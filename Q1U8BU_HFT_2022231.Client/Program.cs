@@ -112,7 +112,7 @@ namespace Q1U8BU_HFT_2022231.Client
             }
             if (entity == "Regular")
             {
-                var results = rest.Get<RegularGuest>("Stat/RegularGuest");
+                var results = rest.Get<RegularGuest>("Stat/RegularGuests");
                 foreach (var item in results)
                 {
                     Console.WriteLine(item);
@@ -196,6 +196,7 @@ namespace Q1U8BU_HFT_2022231.Client
         static void Main(string[] args)
         {
 
+
             rest = new RestService("http://localhost:58670/", "song");
 
             #region Menu
@@ -205,8 +206,8 @@ namespace Q1U8BU_HFT_2022231.Client
                 .Add("Delete", () => Delete("Sales"))
                 .Add("Update", () => Update("Sales"))
                 .Add("Exit", ConsoleMenu.Close);
-            var StatMenu=new ConsoleMenu(args, level: 1)
-                .Add("Favorite", () =>NonCrud("Favorite"))
+            var StatMenu = new ConsoleMenu(args, level: 1)
+                .Add("Favorite", () => NonCrud("Favorite"))
                 .Add("LeastFavorite", () => NonCrud("LeastFavorite"))
                 .Add("MostWanted", () => NonCrud("MostWanted"))
                 .Add("LeastWanted", () => NonCrud("LeastWanted"))
@@ -238,7 +239,7 @@ namespace Q1U8BU_HFT_2022231.Client
                 .Add("Sales", () => SalesSubMenu.Show())
                 .Add("Customers", () => CustomerSubMenu.Show())
                 .Add("Songs", () => SongSubMenu.Show())
-                .Add("Author", () =>AuthorSubMenu.Show())
+                .Add("Author", () => AuthorSubMenu.Show())
                 .Add("Stat", () => StatMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 

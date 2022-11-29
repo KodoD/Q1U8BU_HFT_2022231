@@ -25,6 +25,7 @@ namespace Q1U8BU_HFT_2022231.Models
         [Required]
         [Range(0, 100000)]
         public int Price { get; set; }
+
         public virtual Customer Customer { get; set; }
         public virtual Song Song{ get; set; }
 

@@ -12,11 +12,18 @@ namespace Q1U8BU_HFT_2022231.Logic
     {
         IRepository<Song> repo;
         IRepository<Author> repo2;//IOC KONTENER,fACTORY PATTERN
+
         public SongLogic(IRepository<Song> repo,IRepository<Author> repo2)
         {
             this.repo = repo;
             this.repo2 = repo2;
         }
+
+        public SongLogic(IRepository<Song> repo)
+        {
+            this.repo=repo;
+        }
+
         public void Create(Song item)
         {
             if (item.Like < 0 || item.Like > 5)
@@ -58,7 +65,7 @@ namespace Q1U8BU_HFT_2022231.Logic
         {
             var favorite = from x in repo.ReadAll()
                            orderby x.Like descending
-                           group x by new {x.SongID,x.AuthorID, x.Name,x.Like }into g
+                           group x by new { x.SongID, x.AuthorID, x.Name, x.Like } into g
                            select new Favorite
                            {
                                ID = g.Key.SongID,
@@ -66,25 +73,26 @@ namespace Q1U8BU_HFT_2022231.Logic
                                Likes = g.Key.Like,
                                author = repo2.Read((g.Key.AuthorID)).Name,
                            };
-                                          
-            return favorite;//autor name
-            
+
+            return favorite.Take(1);//autor name
+
+
         }
         public IEnumerable<Favorite> leastFavoriterank()
         {
             var favorite = from x in repo.ReadAll()
                            orderby x.Like ascending
-                           group x by new {x.SongID,x.AuthorID, x.Name,x.Like }into g
-                           select new Stat
+                           group x by new { x.SongID, x.AuthorID, x.Name, x.Like } into g
+                           select new Favorite
                            {
                                ID = g.Key.SongID,
                                Name = g.Key.Name,
                                Likes = g.Key.Like,
                                author = repo2.Read((g.Key.AuthorID)).Name,
                            };
-                                          
-            return favorite;//autor name
-            
+
+            return favorite.Take(1);//autor name
+
         }
 
     }

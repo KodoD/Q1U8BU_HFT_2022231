@@ -7,22 +7,25 @@ using System.Collections.Generic;
 
 namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class StatController : ControllerBase
     {
         ISongLogic logic;
         ISalesLogic logic2;
 
+        public StatController(ISongLogic logic, ISalesLogic logic2)
+        {
+            this.logic = logic;
+            this.logic2 = logic2;
+        }
 
-        // GET: api/<Stat>
         [HttpGet]
-        public IEnumerable<Favorite> Get()
+        public IEnumerable<Favorite> GetFavorite()
         {
             return this.logic.Favoriterank();
         }
 
-        // GET api/<Stat>/5
         [HttpGet]
         public IEnumerable<Favorite> GetLeastFavorite()
         {

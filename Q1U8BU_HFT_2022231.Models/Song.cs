@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Q1U8BU_HFT_2022231.Models
@@ -22,6 +23,7 @@ namespace Q1U8BU_HFT_2022231.Models
         public int AuthorID { get; set; }
         [Range(1,6)]
         public int Like { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Sales> Sales { get; set; }
         public Song()
         {

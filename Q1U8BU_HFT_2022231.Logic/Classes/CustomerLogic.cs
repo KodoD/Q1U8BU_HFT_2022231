@@ -50,8 +50,5 @@ namespace Q1U8BU_HFT_2022231.Logic
         {
             this.repo.Update(item);
         }
-
-
-        public double? GetAvgYear() { return this.repo.ReadAll().Average(t => t.Age); }
     }
 }
