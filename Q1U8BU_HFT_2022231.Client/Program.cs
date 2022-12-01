@@ -78,11 +78,11 @@ namespace Q1U8BU_HFT_2022231.Client
         }
         static void NonCrud(string entity) 
         {
-            if (entity == "Favorite")
+            if (entity == "WhatBought")
             {
-                var results = rest.Get<Favorite>("Stat/Favorite");
-                Console.WriteLine(results[0].Name + " " + results[0].Likes + " " + results[0].ID+" " + results[0].author);
-
+                int id = int.Parse(Console.ReadLine());
+                //  var results = rest.Get<Song>(id, "Stat/WhatBought");
+                Console.WriteLine("LINQ cant translate");
             }
             if (entity == "WhoBoughtIt")
             {
@@ -199,7 +199,7 @@ namespace Q1U8BU_HFT_2022231.Client
                 .Add("Update", () => Update("Sales"))
                 .Add("Exit", ConsoleMenu.Close);
             var StatMenu = new ConsoleMenu(args, level: 1)
-                .Add("Favorite", () => NonCrud("Favorite"))
+                .Add("WhatBought", () => NonCrud("WhatBought"))
                 .Add("WhoBoughtIt", () => NonCrud("WhoBoughtIt"))
                 .Add("MostWanted", () => NonCrud("MostWanted"))
                 .Add("LeastWanted", () => NonCrud("LeastWanted"))

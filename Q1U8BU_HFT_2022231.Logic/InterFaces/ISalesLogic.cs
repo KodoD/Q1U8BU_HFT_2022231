@@ -15,5 +15,6 @@ namespace Q1U8BU_HFT_2022231.Logic
         IEnumerable<MostWanted> LeastWanted();
         IEnumerable<RegularGuest> RegularGuests();
         IEnumerable<Customer> WhoBoughtIt(int id);
+        IEnumerable<Song> WhatBought(int id);
     }
 }

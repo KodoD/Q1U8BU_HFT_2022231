@@ -127,5 +127,25 @@ namespace Q1U8BU_HFT_2022231.Logic
             return regular.ToList();
 
         }
+        public IEnumerable<Song> WhatBought(int id) {
+
+            //LINQ cant translate
+            var songs = from x in repo.ReadAll()
+                        where (id == x.CustomerID)
+                        select new Song
+                        {
+                            SongID = x.SongID,
+                            Name = x.Song.Name,
+                            AuthorID = x.Song.AuthorID,
+
+                             Like=x.Song.Like,
+                             
+
+
+                          };
+
+            return songs.ToList();
+
+        }
     }
 }

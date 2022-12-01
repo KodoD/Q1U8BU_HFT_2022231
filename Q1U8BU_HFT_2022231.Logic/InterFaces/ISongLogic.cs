@@ -11,6 +11,6 @@ namespace Q1U8BU_HFT_2022231.Logic
         Song Read(int id);
         IQueryable<Song> ReadAll();
         void Update(Song item);
-        IEnumerable<Favorite> Favoriterank();
+        
     }
 }

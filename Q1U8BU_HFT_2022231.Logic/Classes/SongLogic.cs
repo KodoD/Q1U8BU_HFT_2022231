@@ -61,24 +61,7 @@ namespace Q1U8BU_HFT_2022231.Logic
         {
             this.repo.Update(item);
         }
-        public IEnumerable<Favorite> Favoriterank()
-        {
-            var favorite = from x in repo.ReadAll()
-                           orderby x.Like descending
 
-            group x by new { x.SongID, x.AuthorID, x.Name, x.Like } into g
-                           select new Favorite
-                           {
-                               ID = g.Key.SongID,
-                               Name = g.Key.Name,
-                               Likes = g.Key.Like,
-                               author = repo2.Read((g.Key.AuthorID)).AName,
-                           };
-
-            return favorite.Take(1);//autor name
-
-
-        }
 
     }
 }

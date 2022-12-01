@@ -11,19 +11,19 @@ namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
     [ApiController]
     public class StatController : ControllerBase
     {
-        ISongLogic logic;
+
         ISalesLogic logic2;
 
-        public StatController(ISongLogic logic, ISalesLogic logic2)
+        public StatController( ISalesLogic logic2)
         {
-            this.logic = logic;
+
             this.logic2 = logic2;
         }
 
-        [HttpGet]
-        public IEnumerable<Favorite> Favorite()
+        [HttpGet("{id}")]
+        public IEnumerable<Song> WhatBought(int id)
         {
-            return this.logic.Favoriterank();
+            return this.logic2.WhatBought(id);
         }
 
         // POST api/<Stat>
