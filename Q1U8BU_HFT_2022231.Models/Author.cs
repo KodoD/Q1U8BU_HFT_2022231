@@ -15,7 +15,7 @@ namespace Q1U8BU_HFT_2022231.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AutherId { get; set; }
-        public string Name { get; set; }
+        public string AName { get; set; }
         public virtual ICollection<Song> Songs{ get; set; }
         public Author()
         {
@@ -27,7 +27,7 @@ namespace Q1U8BU_HFT_2022231.Models
         {
             string[] parts = line.Split('#');
             AutherId = int.Parse(parts[0]);
-            Name = parts[1];
+            AName = parts[1];
             Songs = new HashSet<Song>();
 
         }

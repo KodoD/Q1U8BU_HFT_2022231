@@ -1,4 +1,5 @@
 ﻿using ConsoleTools;
+using Newtonsoft.Json.Serialization;
 using Q1U8BU_HFT_2022231.Models;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace Q1U8BU_HFT_2022231.Client
                 List<Author> author = rest.Get<Author>("author");
                 foreach (var item in author)
                 {
-                    Console.WriteLine(item.AutherId + "\t" + item.Name);
+                    Console.WriteLine(item.AutherId + "\t" + item.AName);
                 }
             }
             if (entity == "Sales")
@@ -86,36 +87,30 @@ namespace Q1U8BU_HFT_2022231.Client
                 }
 
             }
-            if (entity == "LeastFavorite")
+            if (entity == "WhoBoughtIt")
             {
-                var results = rest.Get<Favorite>("Stat/LeastFavorite");
-                foreach (var item in results)
-                {
-                    Console.WriteLine(item);
-                }
+                int id = int.Parse(Console.ReadLine());
+              //  var results = rest.Get<Customer>(id, "Stat/WhoBoughtIt");
+                Console.WriteLine("LINQ cant translate");
+
             }
             if (entity == "MostWanted")
             {
                 var results = rest.Get<MostWanted>("Stat/MostWanted");
-                foreach (var item in results)
-                {
-                    Console.WriteLine(item);
-                }
+                Console.WriteLine(results[0].Name+" "+ results[0].Id+" "+ results[0].Count);
+
             }
             if (entity == "LeastWanted")
             {
                 var results = rest.Get<MostWanted>("Stat/LeastWanted");
-                foreach (var item in results)
-                {
-                    Console.WriteLine(item);
-                }
+                Console.WriteLine(results[0].Name + " " + results[0].Id + " " + results[0].Count);
             }
             if (entity == "Regular")
             {
                 var results = rest.Get<RegularGuest>("Stat/RegularGuests");
                 foreach (var item in results)
                 {
-                    Console.WriteLine(item);
+                    Console.WriteLine(item.Name+" "+item.ID+" "+item.SpentM);
                 }
             }
             Console.ReadLine();
@@ -137,9 +132,9 @@ namespace Q1U8BU_HFT_2022231.Client
                 Console.Write("Enter Author's id to update: ");
                 int id = int.Parse(Console.ReadLine());
                 Author one = rest.Get<Author>(id, "author");
-                Console.WriteLine($"New name[old:{one.Name}]: ");
+                Console.WriteLine($"New name[old:{one.AName}]: ");
                 string name = Console.ReadLine();
-                one.Name = name;
+                one.AName = name;
                 rest.Put(one, "author");
             }
             if (entity == "Sales")
@@ -208,7 +203,7 @@ namespace Q1U8BU_HFT_2022231.Client
                 .Add("Exit", ConsoleMenu.Close);
             var StatMenu = new ConsoleMenu(args, level: 1)
                 .Add("Favorite", () => NonCrud("Favorite"))
-                .Add("LeastFavorite", () => NonCrud("LeastFavorite"))
+                .Add("WhoBoughtIt", () => NonCrud("WhoBoughtIt"))
                 .Add("MostWanted", () => NonCrud("MostWanted"))
                 .Add("LeastWanted", () => NonCrud("LeastWanted"))
                 .Add("RegularCustomer", () => NonCrud("Regular"))

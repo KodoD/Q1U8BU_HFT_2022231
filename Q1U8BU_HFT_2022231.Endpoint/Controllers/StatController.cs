@@ -21,35 +21,35 @@ namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Favorite> GetFavorite()
+        public IEnumerable<Favorite> Favorite()
         {
             return this.logic.Favoriterank();
         }
 
-        [HttpGet]
-        public IEnumerable<Favorite> GetLeastFavorite()
-        {
-            return this.logic.leastFavoriterank();
-        }
-
         // POST api/<Stat>
         [HttpGet]
-        public IEnumerable<MostWanted> GetMostWanted()
+        public IEnumerable<MostWanted> MostWanted()
         {
             return this.logic2.MostWanted();
         }
 
         // POST api/<Stat>
         [HttpGet]
-        public IEnumerable<MostWanted> GetLeastWanted()
+        public IEnumerable<MostWanted> LeastWanted()
         {
             return this.logic2.LeastWanted();
         }
         // POST api/<Stat>
         [HttpGet]
-        public IEnumerable<RegularGuest> GetRegularGuests()
+        public IEnumerable<RegularGuest> RegularGuests()
         {
             return this.logic2.RegularGuests();
+        }
+
+        [HttpGet("{id}")]
+        public IEnumerable<Customer> WhoBoughtIt(int id)
+        {
+            return this.logic2.WhoBoughtIt(id);
         }
     }
 }

@@ -105,7 +105,26 @@ namespace Q1U8BU_HFT_2022231.Logic
                               SpentM = repo.ReadAll().Where(x => x.CustomerID == g.Key.CustomerID).Sum(x => x.Price)
 
                           };
-            return regular.ToList().OrderByDescending(x => x.SpentM);
+            return regular.Where(x => x.SpentM>30000).ToList().OrderByDescending(x => x.SpentM);
+
+
+        }
+
+        //kik azok akik xy-t vettek 
+        public IEnumerable<Customer> WhoBoughtIt(int id)
+        {
+            //LINQ cant translate
+            var regular = from x in repo.ReadAll()
+                          where(id==x.SongID)
+                          select new Customer
+                          {
+                              CustomerID= x.CustomerID,
+                              Name=x.Customer.Name,
+                              Age = x.Customer.Age,
+                              
+
+                          };
+            return regular.ToList();
 
         }
     }

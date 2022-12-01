@@ -65,33 +65,18 @@ namespace Q1U8BU_HFT_2022231.Logic
         {
             var favorite = from x in repo.ReadAll()
                            orderby x.Like descending
-                           group x by new { x.SongID, x.AuthorID, x.Name, x.Like } into g
+
+            group x by new { x.SongID, x.AuthorID, x.Name, x.Like } into g
                            select new Favorite
                            {
                                ID = g.Key.SongID,
                                Name = g.Key.Name,
                                Likes = g.Key.Like,
-                               author = repo2.Read((g.Key.AuthorID)).Name,
+                               author = repo2.Read((g.Key.AuthorID)).AName,
                            };
 
             return favorite.Take(1);//autor name
 
-
-        }
-        public IEnumerable<Favorite> leastFavoriterank()
-        {
-            var favorite = from x in repo.ReadAll()
-                           orderby x.Like ascending
-                           group x by new { x.SongID, x.AuthorID, x.Name, x.Like } into g
-                           select new Favorite
-                           {
-                               ID = g.Key.SongID,
-                               Name = g.Key.Name,
-                               Likes = g.Key.Like,
-                               author = repo2.Read((g.Key.AuthorID)).Name,
-                           };
-
-            return favorite.Take(1);//autor name
 
         }
 
