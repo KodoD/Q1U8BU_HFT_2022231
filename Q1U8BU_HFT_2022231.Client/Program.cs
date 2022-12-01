@@ -81,10 +81,7 @@ namespace Q1U8BU_HFT_2022231.Client
             if (entity == "Favorite")
             {
                 var results = rest.Get<Favorite>("Stat/Favorite");
-                foreach (var item in results)
-                {
-                    Console.WriteLine(item);
-                }
+                Console.WriteLine(results[0].Name + " " + results[0].Likes + " " + results[0].ID+" " + results[0].author);
 
             }
             if (entity == "WhoBoughtIt")
