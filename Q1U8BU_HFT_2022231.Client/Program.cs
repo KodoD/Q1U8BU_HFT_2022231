@@ -84,9 +84,9 @@ namespace Q1U8BU_HFT_2022231.Client
                 var results = rest.Get<Song>($"Stat/WhatBought?id={id}");
                 foreach (var item in results)
                 {
-                    Console.Write(item+" ");
+                    Console.Write(item.Name+" "+item.Like+"\n");
                 }
-                Console.WriteLine(results);
+                Console.WriteLine();
             }
             if (entity == "WhoBoughtIt")
             {
@@ -94,9 +94,9 @@ namespace Q1U8BU_HFT_2022231.Client
                 var results = rest.Get<Customer>($"Stat/WhoBoughtIt?id={id}");
                 foreach (var item in results)
                 {
-                    Console.Write(item + " ");
+                    Console.Write(item.Name + " "+item.Age+"\n");
                 }
-                Console.WriteLine(results);
+                Console.WriteLine();
 
             }
             if (entity == "MostWanted")
