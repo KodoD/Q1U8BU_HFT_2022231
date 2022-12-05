@@ -113,7 +113,7 @@ namespace Q1U8BU_HFT_2022231.Logic
         //kik azok akik xy-t vettek 
         public IEnumerable<Customer> WhoBoughtIt(int id)
         {
-            //LINQ cant translate
+            
             var regular = from x in repo.ReadAll()
                           where(id==x.SongID)
                           select new Customer

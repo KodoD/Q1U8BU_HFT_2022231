@@ -20,8 +20,8 @@ namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
             this.logic2 = logic2;
         }
 
-        [HttpGet("{id}")]
-        public IEnumerable<Song> WhatBought(int id)
+        [HttpGet]
+        public IEnumerable<Song> WhatBought([FromQuery] int id)
         {
             return this.logic2.WhatBought(id);
         }
@@ -46,8 +46,8 @@ namespace Q1U8BU_HFT_2022231.Endpoint.Controllers
             return this.logic2.RegularGuests();
         }
 
-        [HttpGet("{id}")]
-        public IEnumerable<Customer> WhoBoughtIt(int id)
+        [HttpGet]
+        public IEnumerable<Customer> WhoBoughtIt([FromQuery] int id)
         {
             return this.logic2.WhoBoughtIt(id);
         }

@@ -81,14 +81,22 @@ namespace Q1U8BU_HFT_2022231.Client
             if (entity == "WhatBought")
             {
                 int id = int.Parse(Console.ReadLine());
-                //  var results = rest.Get<Song>(id, "Stat/WhatBought");
-                Console.WriteLine("LINQ cant translate");
+                var results = rest.Get<Song>($"Stat/WhatBought?id={id}");
+                foreach (var item in results)
+                {
+                    Console.Write(item+" ");
+                }
+                Console.WriteLine(results);
             }
             if (entity == "WhoBoughtIt")
             {
                 int id = int.Parse(Console.ReadLine());
-              //  var results = rest.Get<Customer>(id, "Stat/WhoBoughtIt");
-                Console.WriteLine("LINQ cant translate");
+                var results = rest.Get<Customer>($"Stat/WhoBoughtIt?id={id}");
+                foreach (var item in results)
+                {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine(results);
 
             }
             if (entity == "MostWanted")
@@ -199,8 +207,8 @@ namespace Q1U8BU_HFT_2022231.Client
                 .Add("Update", () => Update("Sales"))
                 .Add("Exit", ConsoleMenu.Close);
             var StatMenu = new ConsoleMenu(args, level: 1)
-                .Add("WhatBought", () => NonCrud("WhatBought"))
-                .Add("WhoBoughtIt", () => NonCrud("WhoBoughtIt"))
+                .Add("WhatBought the customer u write the id", () => NonCrud("WhatBought"))
+                .Add("WhoBoughtIt the song u wtrite the id", () => NonCrud("WhoBoughtIt"))
                 .Add("MostWanted", () => NonCrud("MostWanted"))
                 .Add("LeastWanted", () => NonCrud("LeastWanted"))
                 .Add("RegularCustomer", () => NonCrud("Regular"))
